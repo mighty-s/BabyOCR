@@ -2,14 +2,15 @@ __author__ = 'sight'
 import cv2
 import numpy as np
 from keras.models import load_model
-import openCV_Trial.imgSearch.myHeader as my
+import App.main.myHeader as my
 
 word_map = {0:  'A', 1:  'B', 2:  'C',  3: 'D',  4: 'E',  5: 'F',  6: 'G',
             7:  'H', 8:  'I', 9:  'J', 10: 'K', 11: 'L', 12: 'M', 13: 'N', 14: 'O',
             15: 'P', 16: 'Q', 17: 'R', 18: 'S', 19: 'T', 20: 'U', 21: 'V',
             22: 'W', 23: 'X', 24: 'Y', 25: 'Z'}
 
-model = load_model('MNIST_CNN_model.h5')
+model = load_model('./MNIST_CNN_model.h5')
+model.summary()
 
 img = cv2.imread('../resources/CBH.jpg', cv2.IMREAD_COLOR)
 original = img.copy()
@@ -33,8 +34,8 @@ answerList = []         # 정답 목록
 my.search_contours(contours, boxes, img)
 
 # 박스 리스트에 있는거 정렬 - x좌표 기준
-# boxes = sorted(boxes, key=lambda box: box[1])
 boxes = my.letter_sort(boxes)
+
 print('함수 탈출 후 컨테이너 개수 :', len(boxes))
 
 # 박스 리스트에 있는 순서대로 이미지 잘라서 집어 넣기
@@ -48,7 +49,7 @@ for i in range(len(container)):
     cv2.imshow(str(i), target)
     target = target.reshape((1, 34, 34, 1))
     answer = model.predict_classes(target)
-    print('The Answer is ', i, ':', answer)
+#    print('The Answer is ', i, ':', answer)
     answerList.append(answer[0])
 
 

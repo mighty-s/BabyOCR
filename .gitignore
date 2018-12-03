@@ -1,5 +1,5 @@
 # 데이터 셋 제외
-Trial1/dataset
+DataTrain/dataset
 
 # Pycharm IDEA 설정 제외
 .idea/
