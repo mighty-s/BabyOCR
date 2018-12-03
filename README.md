@@ -2,9 +2,9 @@
 ==================================================================
 파이썬  입문3주차, openCV 입문 1주차가 만드는 <br>
 기적의 CNN 딥러닝 기반 OCR 프로젝트
+<br><br>
 
-
-- 프로젝트 구조 <br>
+__프로젝트 구조__<br>
 &nbsp; App <br>
 &nbsp;&nbsp;&nbsp;&nbsp; |-- main.py     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 프로젝트 실행 파일 <br>
 &nbsp;&nbsp;&nbsp;&nbsp; |-- my_util.py  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mani.py 에서 사용하는 함수들
