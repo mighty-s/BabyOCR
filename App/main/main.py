@@ -2,7 +2,7 @@ __author__ = 'sight'
 import cv2
 import numpy as np
 from keras.models import load_model
-import App.main.myHeader as my
+import App.main.my_util as my
 
 word_map = {0:  'A', 1:  'B', 2:  'C',  3: 'D',  4: 'E',  5: 'F',  6: 'G',
             7:  'H', 8:  'I', 9:  'J', 10: 'K', 11: 'L', 12: 'M', 13: 'N', 14: 'O',
@@ -35,8 +35,6 @@ my.search_contours(contours, boxes, img)
 
 # 박스 리스트에 있는거 정렬 - x좌표 기준
 boxes = my.letter_sort(boxes)
-
-print('함수 탈출 후 컨테이너 개수 :', len(boxes))
 
 # 박스 리스트에 있는 순서대로 이미지 잘라서 집어 넣기
 for i in range(len(boxes)):
