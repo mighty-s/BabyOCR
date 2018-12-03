@@ -12,20 +12,17 @@ import numpy
 
 def search_contours(contours, container, image):
     """
-
-    :param contours:
+    
+    :param contours:    
     :param container:
-    :param image:
-    :return:
+    :param image:      사각형을 표시할 이미지
+    :return:           none
     """
-    print('카운터 개수 :', len(contours))
     for i in range(len(contours)):
         cnt = contours[i]
         x, y, w, h = cv2.boundingRect(cnt)
-        cv2.rectangle(image, (x, y), (x + w, y + h), (255, 0, 0), 1)  # 원본에 파랑 네모침 (웬진 모르지만 BGR) 임
+        cv2.rectangle(image, (x, y), (x + w, y + h), (255, 0, 0), 1)  # 원본에 파랑 네모침 ( BGR 값 )
         container.append((x, y, w, h))
-
-    print('컨테이너 개수 :', len(container))
 
 
 def letter_sort(boxes):
