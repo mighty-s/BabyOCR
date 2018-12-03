@@ -1,0 +1,8 @@
+# 데이터 셋 제외
+Trial1/dataset
+
+# Pycharm IDEA 설정 제외
+.idea/
+
+# 뭔진 모르지만 캐싱한것도 제거
+__pycache__/
