@@ -16,7 +16,6 @@ img = cv2.imread('../resources/CBH.jpg', cv2.IMREAD_COLOR)
 original = img.copy()
 gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 blur = cv2.GaussianBlur(gray, (5, 5), 0)
-canny = cv2.Canny(blur, 200, 200)
 
 ret, thresh = cv2.threshold(blur, 120, 255, 0)
 ret_bi, binary_img = cv2.threshold(thresh, 150, 255, cv2.THRESH_BINARY_INV)
@@ -58,7 +57,6 @@ for i in range(len(answerList)):
 cv2.imshow('original', img)
 cv2.imshow('gray', gray)
 cv2.imshow('blur', blur)
-cv2.imshow('canny', canny)
 cv2.imshow('binary black', binary_img)
 
 cv2.waitKey(0)
