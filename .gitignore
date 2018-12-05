@@ -6,3 +6,6 @@ DataTrain/dataset
 
 # 뭔진 모르지만 캐싱한것도 제거
 __pycache__/
+
+# 생성되는 docx 파일도 제외
+App/main/output

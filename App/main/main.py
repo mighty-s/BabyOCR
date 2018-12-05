@@ -9,10 +9,11 @@ word_map = {0:  'A', 1:  'B', 2:  'C',  3: 'D',  4: 'E',  5: 'F',  6: 'G',
             15: 'P', 16: 'Q', 17: 'R', 18: 'S', 19: 'T', 20: 'U', 21: 'V',
             22: 'W', 23: 'X', 24: 'Y', 25: 'Z'}
 
-model = load_model('./MNIST_CNN_model.h5')
+model = load_model('./models/result_model.h5')
 model.summary()
 
-img = cv2.imread('../resources/CBH.jpg', cv2.IMREAD_COLOR)
+img = cv2.imread('../resources/SDM.JPG', cv2.IMREAD_COLOR)
+
 original = img.copy()
 gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 blur = cv2.GaussianBlur(gray, (5, 5), 0)
@@ -46,13 +47,16 @@ for i in range(len(container)):
     cv2.imshow(str(i), target)
     target = target.reshape((1, 34, 34, 1))
     answer = model.predict_classes(target)
-#    print('The Answer is ', i, ':', answer)
     answerList.append(answer[0])
 
-
+result = ''
 print(answerList)
 for i in range(len(answerList)):
     print(word_map[answerList[i]], end='')
+    result += word_map[answerList[i]]
+
+my.write_in_docx(result)
+my.text_to_speech(result)
 
 cv2.imshow('original', img)
 cv2.imshow('gray', gray)

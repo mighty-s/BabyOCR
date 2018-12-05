@@ -7,7 +7,7 @@ from keras.layers import Flatten
 from keras.layers.convolutional import Conv2D
 from keras.layers.convolutional import MaxPooling2D
 from keras.preprocessing.image import ImageDataGenerator
-
+from keras.callbacks import EarlyStopping
 # custom import
 from DataTrain.my_trainer_utils import plot_loss, plot_acc
 
@@ -18,7 +18,7 @@ np.random.seed(3)
 train_datagen = ImageDataGenerator(rescale=1. / 255)
 
 train_generator = train_datagen.flow_from_directory(
-    'C:/Users/sdm32/OneDrive/바탕 화면/플밍/Python/finalTerm/DataTrain/dataset/training_set',
+    './dataset/training_set',
     target_size=(34, 34),
     batch_size=10,
     class_mode='categorical',
@@ -27,7 +27,7 @@ train_generator = train_datagen.flow_from_directory(
 valid_datagen = ImageDataGenerator(rescale=1. / 255)
 
 valid_generator = valid_datagen.flow_from_directory(
-    'C:/Users/sdm32/OneDrive/바탕 화면/플밍/Python/finalTerm/DataTrain/dataset/validation_set',
+    './dataset/validation_set',
     target_size=(34, 34),
     batch_size=10,
     class_mode='categorical',
@@ -36,14 +36,14 @@ valid_generator = valid_datagen.flow_from_directory(
 test_datagen = ImageDataGenerator(rescale=1. / 255)
 
 test_generator = test_datagen.flow_from_directory(
-    'C:/Users/sdm32/OneDrive/바탕 화면/플밍/Python/finalTerm/DataTrain/dataset/test_set',
+    './dataset/test_set',
     target_size=(34, 34),
     batch_size=10,
     class_mode='categorical',
     color_mode='grayscale')
 
-# 2. 모델 구성하기
-model = Sequential()        # 커널 사이즈 == 필터
+# 2. 모델 구성
+model = Sequential()                         # 커널 사이즈 == 필터
 model.add(Conv2D(32, kernel_size=(5, 5),     # input_shape : 샘플 수를 제외한 입력 형태를 정의 합니다. 모델에서 첫 레이어일 때만 정의하면 됩니다.
                  activation='relu',          # (행, 열, 채널 수)로 정의합니다. 흑백영상인 경우에는 채널이 1이고, 컬러(RGB)영상인 경우에는 채널을 3으로 설정합니다.
                  input_shape=(34, 34, 1),       
@@ -57,13 +57,15 @@ model.add(Dense(20, activation='relu'))
 model.add(Dense(26, activation='softmax'))
 
 # 3. 모델 학습과정 설정하기
-model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
+model.compile(loss='categorical_crossentropy',
+              optimizer='adam',
+              metrics=['accuracy'])
 
 # Early Stopping
-# early = [EarlyStopping(monitor='val_loss',
-#                        min_delta=0,
-#                        patience=10,
-#                        mode='min')]
+early = [EarlyStopping(monitor='val_loss',
+                       min_delta=0,
+                       patience=10,
+                       mode='min')]
 
 # 4. 모델 학습시키기
 hist = model.fit_generator(
@@ -88,4 +90,5 @@ output = model.predict_generator(test_generator, steps=10)
 np.set_printoptions(formatter={'float': lambda x: "{0:0.3f}".format(x)})
 print(test_generator.class_indices)
 
-model.save('MNIST_CNN_model.h5')
+# 7. 만든 모델 저장
+model.save('result_model.h5')
